@@ -1,0 +1,64 @@
+-- CreateTable
+CREATE TABLE "User" (
+    "userId" SERIAL NOT NULL,
+    "code" VARCHAR(32) NOT NULL,
+    "name" VARCHAR(128) NOT NULL,
+    "email" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
+    "password" VARCHAR(256) NOT NULL,
+    "birthday" TIMESTAMP(3),
+    "phone" VARCHAR(16),
+    "address" VARCHAR(256),
+    "note" VARCHAR(1024),
+    "isActive" BOOLEAN NOT NULL DEFAULT true,
+    "createAt" TIMESTAMP(3),
+    "createdBy" VARCHAR(128),
+    "updatedAt" TIMESTAMP(3),
+    "updatedBy" VARCHAR(128),
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("userId")
+);
+
+-- CreateTable
+CREATE TABLE "Role" (
+    "roleId" SERIAL NOT NULL,
+    "code" VARCHAR(32) NOT NULL,
+    "name" VARCHAR(128) NOT NULL,
+    "note" VARCHAR(1024),
+    "isActive" BOOLEAN NOT NULL DEFAULT true,
+    "createAt" TIMESTAMP(3),
+    "createdBy" VARCHAR(128),
+    "updatedAt" TIMESTAMP(3),
+    "updatedBy" VARCHAR(128),
+
+    CONSTRAINT "Role_pkey" PRIMARY KEY ("roleId")
+);
+
+-- CreateTable
+CREATE TABLE "UserRole" (
+    "userId" INTEGER NOT NULL,
+    "roleId" INTEGER NOT NULL,
+    "note" VARCHAR(1024),
+    "isActive" BOOLEAN NOT NULL DEFAULT true,
+    "createAt" TIMESTAMP(3),
+    "createdBy" VARCHAR(128),
+    "updatedAt" TIMESTAMP(3),
+    "updatedBy" VARCHAR(128),
+
+    CONSTRAINT "UserRole_pkey" PRIMARY KEY ("userId","roleId")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_code_key" ON "User"("code");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+
+-- AddForeignKey
+ALTER TABLE "UserRole" ADD CONSTRAINT "UserRole_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("userId") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "UserRole" ADD CONSTRAINT "UserRole_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES "Role"("roleId") ON DELETE CASCADE ON UPDATE CASCADE;

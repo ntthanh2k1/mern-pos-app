@@ -1,0 +1,10 @@
+{
+  "name": "pos-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn --cwd ./api && yarn --cwd ./client && yarn --cwd ./client build",
+    "start": "yarn --cwd ./api prod"
+  }
+}
