@@ -1,0 +1,13 @@
+model Role {
+  roleId Int @id @default(autoincrement())
+  code String @db.VarChar(32)
+  name String @db.VarChar(128)
+  note String? @db.VarChar(1024)
+  isActive Boolean @default(true)
+  createAt DateTime?
+  createdBy String? @db.VarChar(128)
+  updatedAt DateTime?
+  updatedBy String? @db.VarChar(128)
+
+  userRoles UserRole[]
+}

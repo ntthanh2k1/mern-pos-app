@@ -1,0 +1,15 @@
+model UserRole {
+  userId Int
+  roleId Int
+  note String? @db.VarChar(1024)
+  isActive Boolean @default(true)
+  createAt DateTime?
+  createdBy String? @db.VarChar(128)
+  updatedAt DateTime?
+  updatedBy String? @db.VarChar(128)
+
+  user User @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  role Role @relation(fields: [roleId], references: [roleId], onDelete: Cascade)
+  
+  @@id([userId, roleId])
+}

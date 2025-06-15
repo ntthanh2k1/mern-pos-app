@@ -1,25 +1,4 @@
 -- CreateTable
-CREATE TABLE "User" (
-    "userId" SERIAL NOT NULL,
-    "code" VARCHAR(32) NOT NULL,
-    "name" VARCHAR(128) NOT NULL,
-    "email" TEXT NOT NULL,
-    "username" TEXT NOT NULL,
-    "password" VARCHAR(256) NOT NULL,
-    "birthday" TIMESTAMP(3),
-    "phone" VARCHAR(16),
-    "address" VARCHAR(256),
-    "note" VARCHAR(1024),
-    "isActive" BOOLEAN NOT NULL DEFAULT true,
-    "createAt" TIMESTAMP(3),
-    "createdBy" VARCHAR(128),
-    "updatedAt" TIMESTAMP(3),
-    "updatedBy" VARCHAR(128),
-
-    CONSTRAINT "User_pkey" PRIMARY KEY ("userId")
-);
-
--- CreateTable
 CREATE TABLE "Role" (
     "roleId" SERIAL NOT NULL,
     "code" VARCHAR(32) NOT NULL,
@@ -46,6 +25,27 @@ CREATE TABLE "UserRole" (
     "updatedBy" VARCHAR(128),
 
     CONSTRAINT "UserRole_pkey" PRIMARY KEY ("userId","roleId")
+);
+
+-- CreateTable
+CREATE TABLE "User" (
+    "userId" SERIAL NOT NULL,
+    "code" VARCHAR(32) NOT NULL,
+    "name" VARCHAR(128) NOT NULL,
+    "email" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
+    "password" VARCHAR(256) NOT NULL,
+    "birthday" TIMESTAMP(3),
+    "phone" VARCHAR(16),
+    "address" VARCHAR(256),
+    "note" VARCHAR(1024),
+    "isActive" BOOLEAN NOT NULL DEFAULT true,
+    "createAt" TIMESTAMP(3),
+    "createdBy" VARCHAR(128),
+    "updatedAt" TIMESTAMP(3),
+    "updatedBy" VARCHAR(128),
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("userId")
 );
 
 -- CreateIndex

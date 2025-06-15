@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon src/server.js",
-    "prod": "cross-env NODE_ENV=production node src/server.js"
+    "prod": "cross-env NODE_ENV=production node src/server.js",
+    "prisma:merge": "prisma-merge -b prisma/base.prisma -s prisma/models/**/*.prisma -o prisma/schema.prisma",
+    "prisma:migrate": "yarn prisma:merge && prisma migrate dev"
   },
   "dependencies": {
     "@prisma/client": "^6.9.0",
@@ -24,6 +26,7 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "nodemon": "^3.1.10",
-    "prisma": "^6.9.0"
+    "prisma": "^6.9.0",
+    "prisma-merge": "^0.2.0"
   }
 }
