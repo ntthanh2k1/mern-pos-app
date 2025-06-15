@@ -15,5 +15,6 @@ model User {
   updatedAt DateTime?
   updatedBy String? @db.VarChar(128)
 
+  refreshTokens RefreshToken[]
   userRoles UserRole[]
 }

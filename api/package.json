@@ -8,10 +8,12 @@
     "dev": "cross-env NODE_ENV=development nodemon src/server.js",
     "prod": "cross-env NODE_ENV=production node src/server.js",
     "prisma:merge": "prisma-merge -b prisma/base.prisma -s prisma/models/**/*.prisma -o prisma/schema.prisma",
-    "prisma:migrate": "yarn prisma:merge && prisma migrate dev"
+    "prisma:migrate": "yarn prisma:merge && prisma migrate dev",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^6.9.0",
+    "argon2": "^0.43.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",

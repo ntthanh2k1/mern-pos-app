@@ -3,6 +3,10 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import globalLimiter from "./middleware/rate_limit.middleware.js";
+import errorHandler from "./middleware/error.middleware.js";
+
+import authRoutes from "./routes/auth.routes.js";
 
 dotenv.config();
 
@@ -18,6 +22,11 @@ app.use(
   })
 );
 app.use(cookieParser());
+app.use(globalLimiter);
+
+app.use("/api/auth", authRoutes);
+
+app.use(errorHandler);
 
 app.listen(port, async () => {
   console.log(`http://localhost:${port}`);

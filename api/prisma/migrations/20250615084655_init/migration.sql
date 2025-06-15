@@ -1,4 +1,15 @@
 -- CreateTable
+CREATE TABLE "RefreshToken" (
+    "refreshTokenId" SERIAL NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "token" VARCHAR(1024) NOT NULL,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "RefreshToken_pkey" PRIMARY KEY ("refreshTokenId")
+);
+
+-- CreateTable
 CREATE TABLE "Role" (
     "roleId" SERIAL NOT NULL,
     "code" VARCHAR(32) NOT NULL,
@@ -49,6 +60,12 @@ CREATE TABLE "User" (
 );
 
 -- CreateIndex
+CREATE INDEX "RefreshToken_token_idx" ON "RefreshToken"("token");
+
+-- CreateIndex
+CREATE INDEX "RefreshToken_expiresAt_idx" ON "RefreshToken"("expiresAt");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "User_code_key" ON "User"("code");
 
 -- CreateIndex
@@ -56,6 +73,9 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+
+-- AddForeignKey
+ALTER TABLE "RefreshToken" ADD CONSTRAINT "RefreshToken_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("userId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "UserRole" ADD CONSTRAINT "UserRole_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("userId") ON DELETE CASCADE ON UPDATE CASCADE;

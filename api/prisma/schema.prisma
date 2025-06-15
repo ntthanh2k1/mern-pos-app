@@ -17,6 +17,19 @@ datasource db {
 }
 
 
+model RefreshToken {
+  refreshTokenId Int @id @default(autoincrement())
+  userId Int
+  token String @db.VarChar(1024)
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [userId])
+
+  @@index([token])
+  @@index([expiresAt])
+}
+
 model Role {
   roleId Int @id @default(autoincrement())
   code String @db.VarChar(32)
@@ -64,5 +77,6 @@ model User {
   updatedAt DateTime?
   updatedBy String? @db.VarChar(128)
 
+  refreshTokens RefreshToken[]
   userRoles UserRole[]
 }
