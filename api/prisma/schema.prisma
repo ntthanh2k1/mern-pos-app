@@ -17,66 +17,89 @@ datasource db {
 }
 
 
-model RefreshToken {
-  refreshTokenId Int @id @default(autoincrement())
-  userId Int
-  token String @db.VarChar(1024)
-  expiresAt  DateTime
-  createdAt  DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [userId])
-
-  @@index([token])
-  @@index([expiresAt])
+model area {
+  area_id String @id @default(uuid()) @db.Uuid
+  code String @unique
+  name String
+  branch_id String? @db.Uuid
+  note String?
+  is_active Boolean @default(true)
+  is_deleted Boolean @default(false)
+  create_at DateTime @default(now())
+  created_by String?
+  updated_at DateTime @updatedAt
+  updated_by String?
 }
 
-model Role {
-  roleId Int @id @default(autoincrement())
-  code String @db.VarChar(32)
-  name String @db.VarChar(128)
-  note String? @db.VarChar(1024)
-  isActive Boolean @default(true)
-  createAt DateTime?
-  createdBy String? @db.VarChar(128)
-  updatedAt DateTime?
-  updatedBy String? @db.VarChar(128)
-
-  userRoles UserRole[]
+model role {
+  role_id String @id @default(uuid()) @db.Uuid
+  code String @unique
+  name String
+  note String?
+  is_active Boolean @default(true)
+  is_deleted Boolean @default(false)
+  create_at DateTime @default(now())
+  created_by String?
+  updated_at DateTime @updatedAt
+  updated_by String?
 }
 
-model UserRole {
-  userId Int
-  roleId Int
-  note String? @db.VarChar(1024)
-  isActive Boolean @default(true)
-  createAt DateTime?
-  createdBy String? @db.VarChar(128)
-  updatedAt DateTime?
-  updatedBy String? @db.VarChar(128)
+enum TableStatus {
+  AVAILABLE   // Trống
+  OCCUPIED    // Đang có khách
+  RESERVED    // Đã đặt trước
+}
 
-  user User @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  role Role @relation(fields: [roleId], references: [roleId], onDelete: Cascade)
+model table {
+  table_id String @id @default(uuid()) @db.Uuid
+  code String @unique
+  name String
+  status TableStatus
+  area_id String? @db.Uuid
+  branch_id String? @db.Uuid
+  note String?
+  is_active Boolean @default(true)
+  is_deleted Boolean @default(false)
+  create_at DateTime @default(now())
+  created_by String?
+  updated_at DateTime @updatedAt
+  updated_by String?
+}
+
+model user_role {
+  user_id String @db.Uuid
+  role_id String @db.Uuid
+  note String?
+  is_active Boolean @default(true)
+  is_deleted Boolean @default(false)
+  create_at DateTime @default(now())
+  created_by String?
+  updated_at DateTime @updatedAt
+  updated_by String?
   
-  @@id([userId, roleId])
+  @@id([user_id, role_id])
 }
 
-model User {
-  userId Int @id @default(autoincrement())
-  code String @unique @db.VarChar(32)
-  name String @db.VarChar(128)
-  email String @unique
+model user {
+  user_id String @id @default(uuid()) @db.Uuid
+  code String
+  name String
   username String @unique
-  password String @db.VarChar(256)
+  password String
+  image String?
+  phone String?
+  email String?
+  identity_number String?
+  tax_number String?
+  gender Boolean @default(true)
   birthday DateTime?
-  phone String? @db.VarChar(16)
-  address String? @db.VarChar(256)
-  note String? @db.VarChar(1024)
-  isActive Boolean @default(true)
-  createAt DateTime?
-  createdBy String? @db.VarChar(128)
-  updatedAt DateTime?
-  updatedBy String? @db.VarChar(128)
-
-  refreshTokens RefreshToken[]
-  userRoles UserRole[]
+  address String?
+  branch_id String? @db.Uuid
+  note String?
+  is_active Boolean @default(true)
+  is_deleted Boolean @default(false)
+  create_at DateTime @default(now())
+  created_by String?
+  updated_at DateTime @updatedAt
+  updated_by String?
 }

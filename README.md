@@ -1,1 +1,1 @@
-# mern-pos-app
+# pern-pos-app

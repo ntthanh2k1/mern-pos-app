@@ -1,20 +1,23 @@
-model User {
-  userId Int @id @default(autoincrement())
-  code String @unique @db.VarChar(32)
-  name String @db.VarChar(128)
-  email String @unique
+model user {
+  user_id String @id @default(uuid()) @db.Uuid
+  code String
+  name String
   username String @unique
-  password String @db.VarChar(256)
+  password String
+  image String?
+  phone String?
+  email String?
+  identity_number String?
+  tax_number String?
+  gender Boolean @default(true)
   birthday DateTime?
-  phone String? @db.VarChar(16)
-  address String? @db.VarChar(256)
-  note String? @db.VarChar(1024)
-  isActive Boolean @default(true)
-  createAt DateTime?
-  createdBy String? @db.VarChar(128)
-  updatedAt DateTime?
-  updatedBy String? @db.VarChar(128)
-
-  refreshTokens RefreshToken[]
-  userRoles UserRole[]
+  address String?
+  branch_id String? @db.Uuid
+  note String?
+  is_active Boolean @default(true)
+  is_deleted Boolean @default(false)
+  create_at DateTime @default(now())
+  created_by String?
+  updated_at DateTime @updatedAt
+  updated_by String?
 }

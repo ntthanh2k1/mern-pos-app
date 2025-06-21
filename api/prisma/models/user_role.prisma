@@ -1,15 +1,13 @@
-model UserRole {
-  userId Int
-  roleId Int
-  note String? @db.VarChar(1024)
-  isActive Boolean @default(true)
-  createAt DateTime?
-  createdBy String? @db.VarChar(128)
-  updatedAt DateTime?
-  updatedBy String? @db.VarChar(128)
-
-  user User @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  role Role @relation(fields: [roleId], references: [roleId], onDelete: Cascade)
+model user_role {
+  user_id String @db.Uuid
+  role_id String @db.Uuid
+  note String?
+  is_active Boolean @default(true)
+  is_deleted Boolean @default(false)
+  create_at DateTime @default(now())
+  created_by String?
+  updated_at DateTime @updatedAt
+  updated_by String?
   
-  @@id([userId, roleId])
+  @@id([user_id, role_id])
 }

@@ -1,7 +1,8 @@
-model role {
-  role_id String @id @default(uuid()) @db.Uuid
+model area {
+  area_id String @id @default(uuid()) @db.Uuid
   code String
   name String
+  branch_id String? @db.Uuid
   note String?
   is_active Boolean @default(true)
   is_deleted Boolean @default(false)

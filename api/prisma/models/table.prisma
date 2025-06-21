@@ -1,0 +1,21 @@
+enum TableStatus {
+  AVAILABLE   // Trống
+  OCCUPIED    // Đang có khách
+  RESERVED    // Đã đặt trước
+}
+
+model table {
+  table_id String @id @default(uuid()) @db.Uuid
+  code String
+  name String
+  status TableStatus
+  area_id String? @db.Uuid
+  branch_id String? @db.Uuid
+  note String?
+  is_active Boolean @default(true)
+  is_deleted Boolean @default(false)
+  create_at DateTime @default(now())
+  created_by String?
+  updated_at DateTime @updatedAt
+  updated_by String?
+}

@@ -1,5 +1,6 @@
-model role {
-  role_id String @id @default(uuid()) @db.Uuid
+model item_category {
+  item_category_id String @id @default(uuid()) @db.Uuid
+  parent_id String @db.Uuid
   code String
   name String
   note String?

@@ -19,7 +19,7 @@ const generateCode = (prefix = "") => {
   const pad2 = (n) => n.toString().padStart(2, "0");
 
   const yyyy = now.getFullYear();
-  const MM = pad2(now.getMonth() + 1); // getMonth() trả 0–11
+  const MM = pad2(now.getMonth() + 1);
   const dd = pad2(now.getDate());
   const HH = pad2(now.getHours());
   const mm = pad2(now.getMinutes());

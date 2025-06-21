@@ -1,7 +1,9 @@
-model role {
-  role_id String @id @default(uuid()) @db.Uuid
+model product_category {
+  product_category_id String @id @default(uuid()) @db.Uuid
+  parent_id String @db.Uuid
   code String
   name String
+  tax_id String @db.Uuid
   note String?
   is_active Boolean @default(true)
   is_deleted Boolean @default(false)

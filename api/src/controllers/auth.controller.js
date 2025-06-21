@@ -1,7 +1,7 @@
 import { PrismaClient } from "../generated/prisma/client.js";
 import argon2 from "argon2";
 import { generateCode, verifyPassword } from "../utils/helpers.js";
-import { createAccessToken, createRefreshToken } from "../utils/jwt.js";
+import { createAccessToken } from "../utils/jwt.js";
 
 const prisma = new PrismaClient();
 
@@ -60,7 +60,6 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    const userAgent = req.headers["User-Agent"];
 
     const user = await prisma.user.findUnique({ where: { username } });
     if (!user) {
@@ -77,7 +76,6 @@ const login = async (req, res, next) => {
     }
 
     await createAccessToken(user, res);
-    // await createRefreshToken(user, userAgent, res);
 
     res.status(200).json({
       success: true,
